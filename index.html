@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzaria Científica</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+      <div class="nav-container">
+          <a href="#home" class="logo">Pizzaria Científica</a>
+          
+          <!-- Menu Hamburger (Mobile) -->
+          <button class="hamburger">
+            <span class="cart-badge" id="mobileCartBadge"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+          <!-- Links de Navegação -->
+          <ul class="nav-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#menu">Cardápio</a></li>
+              <li><a href="#contact">Contato</a></li>
+              <li><a href="#" id="cartLink">Carrinho (<span id="cartCount">0</span>)</a></li>
+          </ul>
+      </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-overlay">
+            <h1>As Melhores Pizzas da Cidade</h1>
+            <p>Feitas com ingredientes frescos e amor italiano</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="menu-section" id="menu">
+            <div class="menu-header">
+                <h2 class="menu-title">🍕 Nosso Cardápio</h2>
+                <p class="menu-subtitle">Sabores Artesanais Feitos com Paixão</p>
+            </div>
+            <div id="menu-container" class="menu-content"></div>
+        </section>
+
+
+        <section class="contact-section" id="contact">
+          <div class="contact-container">
+              <!-- box de contato -->
+              <div class="contact-box">
+                  <h2 class="section-title">📞 Fale Conosco</h2>
+                  <div class="contact-content">
+                      <form class="contact-form">
+                          <div class="form-group">
+                              <input type="text" id="name" placeholder="Seu nome" required>
+                          </div>
+                          <div class="form-group">
+                              <input type="email" id="email" placeholder="Seu e-mail" required>
+                          </div>
+                          <div class="form-group">
+                              <input type="tel" id="phone" placeholder="(xx) x xxxx-xxxx" maxlength="16">
+                          </div>
+                          <div class="form-group">
+                              <textarea id="message" placeholder="Sua mensagem" rows="5" required></textarea>
+                          </div>
+                          <button type="submit">Enviar Mensagem</button>
+                      </form>
+                  </div>
+              </div>
+      
+              <!-- box do mapa -->
+              <div class="contact-box">
+                  <h2 class="section-title">📍 Nossa Localização</h2>
+                  <div class="contact-content">
+                      <iframe 
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.756164176979!2d-48.5147112!3d-25.5225973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94db9a5db9477377%3A0xbbb63b34d5540198!2sPol%C3%ADcia%20Cient%C3%ADfica%20-%20Instituto%20de%20Criminal%C3%ADstica%20-%20Paranagu%C3%A1!5e0!3m2!1spt-BR!2sbr!4v1717454657041!5m2!1spt-BR!2sbr" 
+                          allowfullscreen="" 
+                          loading="lazy" 
+                          referrerpolicy="no-referrer-when-downgrade">
+                      </iframe>
+                      <a href="https://maps.google.com" target="_blank" class="map-link">Ver mapa ampliado</a>
+                  </div>
+              </div>
+          </div>
+      </section>
+     
+      <!-- modal da pizza selecionada -->
+      <div id="pizzaModal" class="modal">
+          <div class="modal-content">
+              <span onclick="closePizzaModal()" class="closepizza"></span>
+              <div id="modalPizzaContent"></div>
+          </div>
+      </div>
+      
+      
+        <!-- carrinho modal/overlau -->
+        <div id="cartModal" class="modal">
+          <div class="modal-content cart-modal-content">
+            <span class="close">&times;</span>
+            <div class="cart-header">
+              <h3>🛒 Seu Carrinho</h3>
+            </div>
+            <div id="cartItems" class="cart-items">
+              <div class="empty-cart">Carrinho vazio</div>
+            </div>
+            <div class="cart-footer">
+              <div id="cartTotal">Total: R$ 0,00</div>
+              <button id="checkoutBtn">Finalizar Pedido</button>
+            </div>
+          </div>
+        </div>
+      
+        <!-- modal do checkout final -->
+        <div id="checkoutModal" class="modal">
+          <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Finalizar Pedido</h2>
+              <form id="checkoutForm">
+                  <div class="form-group">
+                      <input type="text" id="clientName" placeholder="Seu nome completo" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" id="clientAddress" placeholder="Endereço completo" required>
+                  </div>
+                  <div class="form-group">
+                      <label>Forma de pagamento</label>
+                      <div class="custom-select">
+                          <div class="select-header">
+                              <span class="selected-value">
+                                  <i class="fa-solid fa-money-bill-wave"></i>
+                                  Selecione a forma de pagamento
+                              </span>
+                              <i class="fa-solid fa-chevron-down"></i>
+                          </div>
+                          <div class="select-options">
+                            <div class="option" data-value="Dinheiro">
+                                <i class="fa-solid fa-money-bill-wave"></i>
+                                <span>Dinheiro</span>
+                            </div>
+                            <div class="option" data-value="Cartão">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <span>Cartão</span>
+                            </div>
+                            <div class="option" data-value="PIX">
+                                <i class="fa-solid fa-qrcode"></i>
+                                <span>PIX</span>
+                            </div>
+                          </div>
+                          <input type="hidden" id="paymentMethod" name="paymentMethod" required value="Dinheiro">
+                      </div>
+                  </div>
+                  <button type="submit">Enviar Pedido via WhatsApp</button>
+              </form>
+          </div>
+      </div>
+      
+        <!-- tooltip -->
+        <div id="notification" class="notification-hidden"></div>
+    </main>
+
+    
+    <script src="scripts.js"></script>
+</body>
+<footer class="footer">
+  <div onclick="window.open('https://github.com/FeTads/')" style="cursor: pointer;">
+    <p>Site feito por Felipe 'FeTads' Forte.</p>
+</div>
+</footer>
+</html>
